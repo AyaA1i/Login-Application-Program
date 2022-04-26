@@ -5,3 +5,123 @@
 // Author2 and ID and Group: Mariam Ayman Taha & 20210380 & A
 // Author3 and ID and Group: Amira Basaam Dabbak & 20210799 & A
 // Teaching Assistant: Eng. Nesma Mohamed & Eng. Yousra Ayman
+//------------------------------------------------------------------------------
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include<regex>
+
+
+using namespace std;
+
+string FileName;
+
+void Input_FileName();
+
+void Add();
+
+void Display();
+
+void Empty();
+
+bool encrypt();
+
+void decrypt();
+
+void merge();
+
+void count_num_of_words();
+
+void count_num_of_characters();
+
+void count_num_of_lines();
+
+void search_for_word();
+
+void count_num_of_times_word_exist();
+
+void upper_case();
+
+void lower_case();
+
+void first_caps();
+
+void save();
+
+void exit();
+
+int main() {
+    cout << "Ahlan ya user ya habibi \uF04A\n";
+    while (true) {
+        cout << "Please select an option to apply or 16 to exit:\n"
+                "1. Add new text to the end of the file\n";
+                "2. Display the content of the file\n";
+                "3. Empty the file\n";
+                "4. Encrypt the file content\n";
+                "5. Decrypt the file content\n";
+                "6. Merge another file\n";
+                "7. Count the number of words in the file.\n";
+                "8. Count the number of characters in the file\n";
+                "9. Count the number of lines in the file\n";
+                "10. Search for a word in the file\n";
+                "11. Count the number of times a word exists in the file\n";
+                "12. Turn the file content to upper case.\n";
+                "13. Turn the file content to lower case.\n";
+                "14. Turn file content to 1st caps (1st char of each word is capital)\n";
+                "15. Save\n";
+                "16. Exit\n";
+
+        string option;
+        cin >> option;
+         regex validOption("[0-9]|1[0-6]");
+        while(!regex_match(option, validOption)){
+            cout << "Please enter an option from the previous list\n>>";
+            cin >> option;
+        }
+
+
+        if (option == "1")
+            Add();
+        else if (option == "2")
+            Display();
+        else if (option == "3")
+            Empty();
+        else if (option == "4")
+            encrypt();
+        else if (option == "5")
+            decrypt();
+        else if (option == "6")
+            merge();
+        else if (option == "7")
+            count_num_of_words();
+        else if (option == "8")
+            count_num_of_characters();
+        else if (option == "9")
+            count_num_of_lines();
+        else if (option == "10")
+            search_for_word();
+        else if (option == "11")
+            count_num_of_times_word_exist();
+        else if (option == "12")
+            upper_case();
+        else if (option == "13"){
+            lower_case();
+        }
+        else if (option == "14") {
+           first_caps();
+        }
+        else if(option == "15"){
+        save();
+        }
+        else if(option == "16"){
+        exit();}
+        cout << "\n_______________________________________________________________\n";
+    }
+
+}
+
+//_________________________________________
+//void Input_FileName(){
+//cout<<"Enter the file name :";
+//cin>>FileName;
+//FileName += ".txt";
