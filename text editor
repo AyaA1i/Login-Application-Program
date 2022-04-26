@@ -122,7 +122,7 @@ void Input_FileName(){
     fstream inputStream(FileName);
     if (inputStream.fail()) {
         cout << "The file can't be opened\n" << endl;
-        inputStream.open(FileName.c_str(),ios::in);
+        inputStream.open(FileName.c_str(),ios::app);
         cout<<"This is a new file. I created it for you ^_^\n";
     } }
 bool exit_or_save(){
