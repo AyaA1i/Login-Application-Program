@@ -159,22 +159,36 @@ void count_num_of_lines(){
 void merge(){
     fstream myFile2;
     string FN2, line, string1;
-    cout << "Please enter the file name you want to take its content to be merged: ";
+    cout << "Please enter the file name you want to copy its content to be merged with another file:";
     cin.ignore();
-    getline(cin, FN2, '\n');
+    getline(cin,FN2,'\n');
     FN2 += ".txt";
     FN2.c_str();
     myFile2.open(FN2);
+    if (myFile2.fail()) {
+        myFile2.open(FN2,ios::out);
+        cout << "This is a new file. I created it for you ^_^\n";
+    }
+    else{
+        cout << "The file is already exists :)\n";
+    }
     while(getline(myFile2, line)){
        string1 += line;
        string1 += '\n';
     }
     fstream myFile;
     string FN;
-    cout << "\nPlease enter the main file to apply the merge process: ";
-    getline(cin, FN, '\n');
+    cout << "Please enter the file name you want to apply merge process:";
+    getline(cin,FN,'\n');
     FN += ".txt";
     FN.c_str();
-    myFile.open(FN, ios::app);
+    myFile.open(FN);
+    if (myFile.fail()) {
+        myFile.open(FN,ios::app);
+        cout << "This is a new file. I created it for you ^_^\n";
+    }
+    else{
+        cout << "The file is already exists :)\n";
+    }
     myFile << string1;
 }
