@@ -156,4 +156,25 @@ void count_num_of_lines(){
     }
     cout << "\nSum of lines in the specified file is " << sum << " line";
 }
-
+void merge(){
+    fstream myFile2;
+    string FN2, line, string1;
+    cout << "Please enter the file name you want to take its content to be merged: ";
+    cin.ignore();
+    getline(cin, FN2, '\n');
+    FN2 += ".txt";
+    FN2.c_str();
+    myFile2.open(FN2);
+    while(getline(myFile2, line)){
+       string1 += line;
+       string1 += '\n';
+    }
+    fstream myFile;
+    string FN;
+    cout << "\nPlease enter the main file to apply the merge process: ";
+    getline(cin, FN, '\n');
+    FN += ".txt";
+    FN.c_str();
+    myFile.open(FN, ios::app);
+    myFile << string1;
+}
