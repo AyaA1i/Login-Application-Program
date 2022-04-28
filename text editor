@@ -125,9 +125,10 @@ void Input_FileName(){
         cout << "The file can't be opened\n" << endl;
         file.open(FileName,ios::out);
         cout<<"This is a new file. I created it for you ^_^\n";
-    } }
-bool exit_or_save(){
+    }
+}
 
+bool exit_or_save(){
     if (!saved) {
         cout<< "Are you sure you want to exit without saving?\nPress 0 to exit\nPress 1 to save and exit\nPress 2 to return back>>";
         char choice;
@@ -143,10 +144,9 @@ bool exit_or_save(){
             return true;
         }
     }
-
     return true;
-
 }
+
 void count_num_of_lines(){
     Input_FileName();
     string line;
@@ -156,6 +156,7 @@ void count_num_of_lines(){
     }
     cout << "\nSum of lines in the specified file is " << sum << " line";
 }
+
 void merge(){
     fstream myFile2;
     string FN2, line, string1;
@@ -192,6 +193,7 @@ void merge(){
     }
     myFile << string1;
 }
+
 void count_num_of_words(){
     fstream myFile;
     string FN, line, string1;
@@ -218,5 +220,28 @@ void count_num_of_words(){
             sum++;
         }
     }
-    cout << sum;
+    cout << "\nSum of words in the specified file is " << sum;
+}
+
+void count_num_of_characters(){
+    fstream myFile;
+    string FN, line, string1;
+    int sum = 0;
+    cout << "Please enter the file name you want to open:";
+    cin.ignore();
+    getline(cin,FN,'\n');
+    FN += ".txt";
+    FN.c_str();
+    myFile.open(FN);
+    if (myFile.fail()) {
+        myFile.open(FN,ios::out);
+        cout << "This is a new file. I created it for you ^_^ \n";
+    }
+    else{
+        cout << "The file is already exists :) \n";
+    }
+    while(getline(myFile, line)){
+        string1 += line;
+    }
+    cout << "\nSum of characters in the specified file is " << string1.length();
 }
