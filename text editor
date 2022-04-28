@@ -117,6 +117,7 @@ int main() {
 //_________________________________________
 void Input_FileName(){
     cout<<"Enter the file name :\n";
+    cin.ignore();
     getline(cin>>ws,FileName,'\n');
     FileName += ".txt";
     file.open(FileName);
@@ -147,23 +148,10 @@ bool exit_or_save(){
 
 }
 void count_num_of_lines(){
-    fstream myFile;
-    string FN;
-    cout << "Please enter the file name you want to open:";
-    getline(cin,FN,'\n');
-    FN += ".txt";
-    FN.c_str();
-    myFile.open(FN);
-    if (myFile.fail()) {
-        myFile.open(FN,ios::out);
-        cout << "This is a new file. I created it for you";
-    }
-    else{
-        cout << "The file is already exists\n";
-    }
+    Input_FileName();
     string line;
     int sum = 0;
-    while(getline(myFile, line)){
+    while(getline(file, line)){
         sum += 1;
     }
     cout << "\nSum of lines in the specified file is " << sum << " line";
