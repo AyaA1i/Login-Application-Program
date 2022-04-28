@@ -192,3 +192,31 @@ void merge(){
     }
     myFile << string1;
 }
+void count_num_of_words(){
+    fstream myFile;
+    string FN, line, string1;
+    int sum = 0;
+    cout << "Please enter the file name you want to open:";
+    cin.ignore();
+    getline(cin,FN,'\n');
+    FN += ".txt";
+    FN.c_str();
+    myFile.open(FN);
+    if (myFile.fail()) {
+        myFile.open(FN,ios::out);
+        cout << "This is a new file. I created it for you ^_^ \n";
+    }
+    else{
+        cout << "The file is already exists :) \n";
+    }
+    while(getline(myFile, line)){
+        string1 += line;
+        string1 += ' ';
+    }
+    for(int i = 0; i < string1.length(); ++i){
+        if(string1[i] == ' ' && string1[i-1] != ' '){
+            sum++;
+        }
+    }
+    cout << sum;
+}
