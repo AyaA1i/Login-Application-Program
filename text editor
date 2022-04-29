@@ -147,16 +147,6 @@ bool exit_or_save(){
     return true;
 }
 
-void count_num_of_lines(){
-    Input_FileName();
-    string line;
-    int sum = 0;
-    while(getline(file, line)){
-        sum += 1;
-    }
-    cout << "\nSum of lines in the specified file is " << sum << " line";
-}
-
 void merge(){
     fstream myFile2;
     string FN2, line, string1;
@@ -194,24 +184,21 @@ void merge(){
     myFile << string1;
 }
 
-void count_num_of_words(){
-    fstream myFile;
-    string FN, line, string1;
+void count_num_of_lines(){
+    Input_FileName();
+    string line;
     int sum = 0;
-    cout << "Please enter the file name you want to open:";
-    cin.ignore();
-    getline(cin,FN,'\n');
-    FN += ".txt";
-    FN.c_str();
-    myFile.open(FN);
-    if (myFile.fail()) {
-        myFile.open(FN,ios::out);
-        cout << "This is a new file. I created it for you ^_^ \n";
+    while(getline(file, line)){
+        sum += 1;
     }
-    else{
-        cout << "The file is already exists :) \n";
-    }
-    while(getline(myFile, line)){
+    cout << "\nSum of lines in the specified file is " << sum;
+}
+
+void count_num_of_words(){
+    Input_FileName();
+    string string1, line;
+    int sum=0;
+    while(getline(file, line)){
         string1 += line;
         string1 += ' ';
     }
@@ -224,82 +211,101 @@ void count_num_of_words(){
 }
 
 void count_num_of_characters(){
-    fstream myFile;
-    string FN, line, string1;
-    int sum = 0;
-    cout << "Please enter the file name you want to open:";
-    cin.ignore();
-    getline(cin,FN,'\n');
-    FN += ".txt";
-    FN.c_str();
-    myFile.open(FN);
-    if (myFile.fail()) {
-        myFile.open(FN,ios::out);
-        cout << "This is a new file. I created it for you ^_^ \n";
-    }
-    else{
-        cout << "The file is already exists :) \n";
-    }
-    while(getline(myFile, line)){
+    Input_FileName();
+    string string1, line;
+    while(getline(file, line)){
         string1 += line;
     }
     cout << "\nSum of characters in the specified file is " << string1.length();
 }
-void Add(){
-     Input_FileName();
-     My_File.open(FileName,ios::app);
-     cout<<"Enter the text you want to add :\nEnter Ctrl+Z when you finish\n";
-    getline(cin>>ws,add,'\0');
-         My_File<<add<<endl;
 
+void search_for_word(){
+    string FN, line, word, string1;
+    Input_FileName();
+    int counter = 0;
+    cout << "Please enter the word to search for it: ";
+    cin >> word;
+    while(getline(file, line)){
+        string1 += line;
+        string1 += ' ';
+    }
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
+    transform(string1.begin(), string1.end(), string1.begin(), ::tolower);
+    for(int i = 0;i < string1.length(); i++) {
+        if (word[0] == string1[i] && string1[i - 1] == ' ') {
+            for (int j = 0; j < word.length(); j++) {
+                if (word[j] == string1[i + j]) {
+                    counter++;
+                }
+            }
+            if (counter == word.length()) {
+                cout << "Word was found in the file :)";
+                break;
+            }
+        }
+        counter = 0;
+    }
+    if(counter != word.length()){
+        cout << "Word was not found in the file :(";
+    }
+}
+
+void Add(){
+ Input_FileName();
+ My_File.open(FileName,ios::app);
+ cout<<"Enter the text you want to add :\nEnter Ctrl+Z when you finish\n";
+getline(cin>>ws,add,'\0');
+     My_File<<add<<endl;
+
+
+}
+
+void display(){
+Input_FileName();
+  My_File.open(FileName.c_str(),ios::in);
+      while (My_File) {
+          while(!My_File.eof()){
+              getline(My_File, line);
+              cout << line << endl;
+          }
+      }
+}
+  
+void clear(){
+Input_FileName();
+ My_File.open(FileName,ios::out);
 
  }
-  void display(){
-  Input_FileName();
-      My_File.open(FileName.c_str(),ios::in);
-          while (My_File) {
-              while(!My_File.eof()){
-                  getline(My_File, line);
-                  cout << line << endl;
-              }
-          }
-
-  
-  }
-  void clear(){
-    Input_FileName();
-     My_File.open(FileName,ios::out);
-     
-     }
-     void encrypt() {
-       Input_FileName();
-       My_File.open(FileName.c_str(), ios::in);
-       string All_File;
-       while (!My_File.eof()) {
-           getline(My_File, line);
-           All_File += line;
-           All_File += '\n';
-       }
-       My_File.close();
-       My_File.open(FileName.c_str(), ios::out);
-       for (int i = 0; i < All_File.length(); i++) {
-           My_File << (char) ((int) All_File[i] + 1);
-
-       }
+ 
+ void encrypt() {
+   Input_FileName();
+   My_File.open(FileName.c_str(), ios::in);
+   string All_File;
+   while (!My_File.eof()) {
+       getline(My_File, line);
+       All_File += line;
+       All_File += '\n';
    }
-    void decrypt() {
-        Input_FileName();
-        My_File.open(FileName.c_str(), ios::in);
-        string All_File;
-        while (!My_File.eof()) {
-            getline(My_File, line);
-            All_File += line;
-            All_File += '\n';
-        }
-        My_File.close();
-        My_File.open(FileName.c_str(), ios::out);
-        for (int i = 0; i < All_File.length(); i++) {
-            My_File << (char) ((int) All_File[i] - 1);
-
-        }
+   My_File.close();
+   My_File.open(FileName.c_str(), ios::out);
+   for (int i = 0; i < All_File.length(); i++) {
+       My_File << (char) ((int) All_File[i] + 1);
     }
+}
+
+void decrypt() {
+    Input_FileName();
+    My_File.open(FileName.c_str(), ios::in);
+    string All_File;
+    while (!My_File.eof()) {
+        getline(My_File, line);
+        All_File += line;
+        All_File += '\n';
+    }
+    My_File.close();
+    My_File.open(FileName.c_str(), ios::out);
+    for (int i = 0; i < All_File.length(); i++) {
+        My_File << (char) ((int) All_File[i] - 1);
+    }
+}
+
