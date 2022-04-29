@@ -245,3 +245,61 @@ void count_num_of_characters(){
     }
     cout << "\nSum of characters in the specified file is " << string1.length();
 }
+void Add(){
+     Input_FileName();
+     My_File.open(FileName,ios::app);
+     cout<<"Enter the text you want to add :\nEnter Ctrl+Z when you finish\n";
+    getline(cin>>ws,add,'\0');
+         My_File<<add<<endl;
+
+
+ }
+  void display(){
+  Input_FileName();
+      My_File.open(FileName.c_str(),ios::in);
+          while (My_File) {
+              while(!My_File.eof()){
+                  getline(My_File, line);
+                  cout << line << endl;
+              }
+          }
+
+  
+  }
+  void clear(){
+    Input_FileName();
+     My_File.open(FileName,ios::out);
+     
+     }
+     void encrypt() {
+       Input_FileName();
+       My_File.open(FileName.c_str(), ios::in);
+       string All_File;
+       while (!My_File.eof()) {
+           getline(My_File, line);
+           All_File += line;
+           All_File += '\n';
+       }
+       My_File.close();
+       My_File.open(FileName.c_str(), ios::out);
+       for (int i = 0; i < All_File.length(); i++) {
+           My_File << (char) ((int) All_File[i] + 1);
+
+       }
+   }
+    void decrypt() {
+        Input_FileName();
+        My_File.open(FileName.c_str(), ios::in);
+        string All_File;
+        while (!My_File.eof()) {
+            getline(My_File, line);
+            All_File += line;
+            All_File += '\n';
+        }
+        My_File.close();
+        My_File.open(FileName.c_str(), ios::out);
+        for (int i = 0; i < All_File.length(); i++) {
+            My_File << (char) ((int) All_File[i] - 1);
+
+        }
+    }
