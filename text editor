@@ -288,9 +288,14 @@ Input_FileName();
    }
    My_File.close();
    My_File.open(FileName.c_str(), ios::out);
-   for (int i = 0; i < All_File.length(); i++) {
-       My_File << (char) ((int) All_File[i] + 1);
-    }
+  for (int i = 0; i < All_File.length(); i++) {
+             if(All_File[i]=='\n'){
+                 My_File<<'\n';
+             }
+             else{
+             My_File << (char) ((int) All_File[i] + 1);}
+
+         }
 }
 
 void decrypt() {
