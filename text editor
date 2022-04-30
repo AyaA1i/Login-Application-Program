@@ -308,4 +308,23 @@ void decrypt() {
         My_File << (char) ((int) All_File[i] - 1);
     }
 }
+void count_num_of_times_word_exist(){
 
+    char name[100], word[30];;
+    ifstream file;
+    cout<<"the name of file:";
+    cin>>name;
+    file.open(name,ios::in);
+    int coun=0;
+    string the_word;
+    cout<<"Enter the word you want to know how many times it is in the file: ";
+    cin>>the_word;
+    while(!file.eof())
+    {
+        file>>word;
+        if(word==the_word)
+            coun++;
+    }
+    cout<<coun;
+    file.close();
+}
