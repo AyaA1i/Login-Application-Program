@@ -344,3 +344,103 @@ void count_num_of_times_word_exist(){
     cout<<coun;
     file.close();
 }
+void lower_case(){
+    string word;
+    fstream file;
+    file.open(myFile.c_str());
+    if(file.fail()) {
+        cout << "could not open the file..";
+    }else {
+        while (file){
+            getline(file, word, '\0');
+        }
+        for (int i = 0; i < word.length(); i++) {
+            if (isalpha(word[i])) {
+                word[i] = tolower(word[i]);
+            }
+        }
+        cout << word;
+        ofstream file(myFile.c_str(),ios::out);
+        file << word;
+    }
+    file.close();
+}
+void upper_case(){
+    string word;
+    fstream file;
+    file.open(myFile.c_str());
+    if(file.fail()) {
+        cout << "could not open the file..";
+    }else {
+        while (file){
+            getline(file, word, '\0');
+        }
+        for (int i = 0; i < word.length(); i++) {
+            if (isalpha(word[i])) {
+                word[i] = toupper(word[i]);
+            }
+        }
+        cout << word;
+        ofstream file(myFile.c_str(),ios::out);
+        file << word;
+    }
+    file.close();
+    
+    void first_caps() {
+    ifstream  file;
+    file.open(name_of_file.c_str());
+    ofstream new_file;
+    char previous_characters = ' ';
+    string characters;
+    getline( file, characters, '\n');
+    new_file.open(name_of_file.c_str());
+    while (! file.eof()) {
+        for (int i = 0;i < characters.size();i++) {
+            if (previous_characters == ' ') {
+                characters[i] = toupper(characters[i]);
+                previous_characters = characters[i];
+            }
+            else
+            {
+                previous_characters = characters[i];
+            }
+        }
+        new_file << characters;
+        new_file << endl;
+        previous_characters = ' ';
+        getline( file, characters, '\n');
+        }
+}
+void save() {
+    ifstream file;
+    file.open(FileName);
+    int YourChoice;
+    cout << "Press 1 to save the contents into the same file, or press 2 to save the contents into another file ...." << endl;
+    cout << "Enter your choice :";
+    cin >> YourChoice;
+    while (true) {
+        if (YourChoice== 1) {
+            break;
+            }
+        else if (YourChoice == 2) {
+            ofstream new_file;
+            string name_of_newFile;
+            char characters;
+           file.get(characters);
+            cout << "Please Enter Your File Name:";
+            cin >> name_of_newFile;
+            new_file.open(name_of_newFile.c_str(), ios_base::binary);
+            while (!file.eof()) {
+                new_file << characters;
+               file.get(characters);
+            }
+            break;
+        }
+        else
+        {
+            cout << "Invalid input" << endl;
+            cout << "please enter valid choice";
+            cin >>YourChoice;
+        }
+    }
+}
