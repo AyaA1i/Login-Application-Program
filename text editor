@@ -1,202 +1,222 @@
 #include <iostream>
-#include <cstring>
 #include <fstream>
 #include<regex>
 
 
 using namespace std;
-bool saved = false ;
+
 string FileName;
 fstream file;
+string option, last_option, string_encrypt, string_decrypt, string_merge, string_add, string_upper, string_lower, string_caps;
 
+void display_menu();
+void valid_option();
 void Input_FileName();
-
-bool exit_or_save();
-
-
 void Add();
-
 void Display();
-
 void Empty();
-
 void encrypt();
-
 void decrypt();
-
 void merge();
-
 void count_num_of_words();
-
 void count_num_of_characters();
-
 void count_num_of_lines();
-
 void search_for_word();
-
 void count_num_of_times_word_exist();
-
 void upper_case();
-
 void lower_case();
-
 void first_caps();
-
 void save();
 
-
-
 int main() {
-    cout << "Ahlan ya user ya habibi \uF04A\n";
+    cout << "Ahlan ya user ya habibi :)";
     Input_FileName();
     while (true) {
-        cout << "Please select an option to apply or 16 to exit:\n"
-                "1. Add new text to the end of the file\n";
-        "2. Display the content of the file\n";
-        "3. Empty the file\n";
-        "4. Encrypt the file content\n";
-        "5. Decrypt the file content\n";
-        "6. Merge another file\n";
-        "7. Count the number of words in the file.\n";
-        "8. Count the number of characters in the file\n";
-        "9. Count the number of lines in the file\n";
-        "10. Search for a word in the file\n";
-        "11. Count the number of times a word exists in the file\n";
-        "12. Turn the file content to upper case.\n";
-        "13. Turn the file content to lower case.\n";
-        "14. Turn file content to 1st caps (1st char of each word is capital)\n";
-        "15. Save\n";
-        "16. Exit\n";
-
-        string option;
-        cin >> option;
-        regex validOption("[0-9]|1[0-6]");
-        while (!regex_match(option, validOption)) {
-            cout << "Please enter an option from the previous list\n>>";
-            cin >> option;
-        }
-
-
-        if (option == "1")
+        display_menu();
+        valid_option();
+        if (option == "1") {
             Add();
-        else if (option == "2")
+        } else if (option == "2") {
             Display();
-        else if (option == "3")
+        } else if (option == "3") {
             Empty();
-        else if (option == "4")
+        } else if (option == "4") {
             encrypt();
-        else if (option == "5")
+        } else if (option == "5") {
             decrypt();
-        else if (option == "6")
+        } else if (option == "6") {
             merge();
-        else if (option == "7")
+        } else if (option == "7") {
             count_num_of_words();
-        else if (option == "8")
+        } else if (option == "8") {
             count_num_of_characters();
-        else if (option == "9")
+        } else if (option == "9") {
             count_num_of_lines();
-        else if (option == "10")
+        } else if (option == "10") {
             search_for_word();
-        else if (option == "11")
+        } else if (option == "11") {
             count_num_of_times_word_exist();
-        else if (option == "12")
+        } else if (option == "12") {
             upper_case();
-        else if (option == "13") {
+        } else if (option == "13") {
             lower_case();
         } else if (option == "14") {
             first_caps();
         } else if (option == "15") {
             save();
         } else if (option == "16") {
-            if (exit_or_save())
-                return 0;
+            return 0;
         }
         cout << "\n_______________________________________________________________\n";
     }
+
 }
 
 //_________________________________________
+void valid_option(){
+    cout << "Your option is: ";
+    getline(cin, option, '\n');
+    regex validOption("[0-9]|1[0-6]");
+    while (!regex_match(option, validOption)) {
+        cout << "Please enter an option from the previous list\n>>";
+        getline(cin, option, '\n');
+    }
+    cout << '\n';
+}
+
+
+void display_menu(){
+    cout << "Please select an option to apply or 16 to exit:\n"
+            "1.  Add new text to the end of the file\n"
+            "2.  Display the content of the file\n"
+            "3.  Empty the file\n"
+            "4.  Encrypt the file content\n"
+            "5.  Decrypt the file content\n"
+            "6.  Merge another file\n"
+            "7.  Count the number of words in the file.\n"
+            "8.  Count the number of characters in the file\n"
+            "9.  Count the number of lines in the file\n"
+            "10. Search for a word in the file\n"
+            "11. Count the number of times a word exists in the file\n"
+            "12. Turn the file content to upper case.\n"
+            "13. Turn the file content to lower case.\n"
+            "14. Turn file content to 1st caps (1st char of each word is capital)\n"
+            "15. Save\n"
+            "16. Exit the whole program\n";
+}
+
+
 void Input_FileName(){
-    cout<<"Enter the file name :\n";
-    cin.ignore();
-    getline(cin>>ws,FileName,'\n');
+    string line, string1;
+    cout << "Enter the file name :\n";
+    getline(cin,FileName,'\n');
     FileName += ".txt";
+    FileName.c_str();
     file.open(FileName);
     if (file.fail()) {
         cout << "The file can't be opened\n" << endl;
         file.open(FileName,ios::out);
-        cout<<"This is a new file. I created it for you ^_^\n";
-    }
-}
-
-bool exit_or_save(){
-    if (!saved) {
-        cout<< "Are you sure you want to exit without saving?\nPress 0 to exit\nPress 1 to save and exit\nPress 2 to return back>>";
-        char choice;
-        cin >> choice;
-        while (choice != '0' && choice != '1' && choice != '2') {
-            cout << "Please enter a valid choice\n>>";
-            cin >> choice;
-        }
-        if (choice == '2')
-            return false;
-        else if (choice == '1') {
-            save();
-            return true;
-        }
-    }
-    return true;
-}
-
-void merge(){
-    fstream myFile2;
-    string FN2, line, string1;
-    cout << "Please enter the file name you want to copy its content to be merged with another file:";
-    cin.ignore();
-    getline(cin,FN2,'\n');
-    FN2 += ".txt";
-    FN2.c_str();
-    myFile2.open(FN2);
-    if (myFile2.fail()) {
-        myFile2.open(FN2,ios::out);
         cout << "This is a new file. I created it for you ^_^\n";
     }
-    else{
-        cout << "The file is already exists :)\n";
+    file.close();
+}
+
+
+void Add(){
+    string add, line;
+    file.open(FileName, ios::in);
+    while(getline(file, line)){
+        string_add += line;
+        string_add += '\n';
     }
-    while(getline(myFile2, line)){
-        string1 += line;
-        string1 += '\n';
+    file.close();
+    file.open(FileName,ios::app);
+    cout << "Enter the text you want to add :\nEnter Ctrl+Z when you finish\n";
+    getline(cin,add, '\0');
+    cin.clear();
+    string_add += add;
+    last_option = "1";
+    file.close();
+}
+
+void Display(){
+    string line;
+    file.open(FileName.c_str(),ios::in);
+    while(getline(file, line)){
+        cout << line << '\n';
     }
-    fstream myFile;
+    if(file.tellg() == 0){
+        cout << "The specified file is empty";
+    }
+    file.close();
+}
+
+
+void Empty(){
+    if(file.tellg() == 0){
+        cout << "The specified file is already empty";
+    }
+    file.open(FileName,ios::out);
+    file.close();
+}
+
+
+void encrypt() {
+    string line;
+    file.close();
+    file.open(FileName.c_str(), ios::in);
+    while (!file.eof()) {
+        getline(file, line);
+        string_encrypt += line;
+        string_encrypt += '\n';
+    }
+    last_option = "4";
+    file.close();
+}
+
+
+void decrypt() {
+    string line;
+    file.open(FileName.c_str(), ios::in);
+    while (!file.eof()) {
+        getline(file, line);
+        string_decrypt += line;
+        string_decrypt += '\n';
+    }
+    last_option = "5";
+    file.close();
+}
+
+
+void merge(){
+    string line;
+    file.open(FileName, ios::in);
+    while(getline(file, line)){
+        string_merge += line;
+        string_merge += '\n';
+    }
+    file.close();
+    fstream file2;
     string FN;
     cout << "Please enter the file name you want to apply merge process:";
     getline(cin,FN,'\n');
     FN += ".txt";
     FN.c_str();
-    myFile.open(FN);
-    if (myFile.fail()) {
-        myFile.open(FN,ios::app);
-        cout << "This is a new file. I created it for you ^_^\n";
+    file2.open(FN, ios::in);
+    if (file2.fail()) {
+        cout << "Invalid File Name\n";
     }
-    else{
-        cout << "The file is already exists :)\n";
+    while(getline(file2, line)){
+        string_merge += line;
+        string_merge += '\n';
     }
-    myFile << string1;
+    file2.close();
+    last_option = "6";
 }
 
-void count_num_of_lines(){
-    Input_FileName();
-    string line;
-    int sum = 0;
-    while(getline(file, line)){
-        sum += 1;
-    }
-    cout << "\nSum of lines in the specified file is " << sum;
-}
 
 void count_num_of_words(){
-    Input_FileName();
+    file.open(FileName, ios:: in);
     string string1, line;
     int sum=0;
     while(getline(file, line)){
@@ -209,23 +229,39 @@ void count_num_of_words(){
         }
     }
     cout << "\nSum of words in the specified file is " << sum;
+    file.close();
 }
 
+
 void count_num_of_characters(){
-    Input_FileName();
+    file.open(FileName, ios::in);
     string string1, line;
     while(getline(file, line)){
         string1 += line;
     }
     cout << "\nSum of characters in the specified file is " << string1.length();
+    file.close();
 }
 
+
+void count_num_of_lines(){
+    file.open(FileName, ios::in);
+    string line;
+    int sum = 0;
+    while(getline(file, line)){
+        sum += 1;
+    }
+    cout << "\nSum of lines in the specified file is " << sum;
+    file.close();
+}
+
+
 void search_for_word(){
+    file.open(FileName, ios::in);
     string FN, line, word, string1;
-    Input_FileName();
     int counter = 0;
     cout << "Please enter the word to search for it: ";
-    cin >> word;
+    getline(cin, word, '\n');
     while(getline(file, line)){
         string1 += line;
         string1 += ' ';
@@ -244,203 +280,245 @@ void search_for_word(){
                 break;
             }
         }
+        else if (word[0] == string1[0]) {
+            for (int j = 0; j < word.length(); j++) {
+                if (word[j] == string1[i + j]) {
+                    counter++;
+                }
+            }
+            if (counter == word.length()) {
+                cout << "Word was found in the file :)";
+                break;
+            }
+        }
         counter = 0;
     }
     if(counter != word.length()){
         cout << "Word was not found in the file :(";
     }
-}
-
-void Add(){
-    Input_FileName();
-    string add;
-    file.open(FileName,ios::app);
-    cout<<"Enter the text you want to add :\nEnter Ctrl+Z when you finish\n";
-    getline(cin>>ws,add,'\0');
-    file<<add<<endl;
-
-
-}
-
-void display(){
-    Input_FileName();
-    string line;
-    file.open(FileName.c_str(),ios::in);
-    while (file) {
-        while(!file.eof()){
-            getline(file, line);
-            cout << line << endl;
-        }
-    }
-}
-
-void clear(){
-    Input_FileName();
-    file.open(FileName,ios::out);
-
-}
-
-void encrypt() {
-    Input_FileName();
-    string line;
-    file.open(FileName.c_str(), ios::in);
-    string All_File;
-    while (!file.eof()) {
-        getline(file, line);
-        All_File += line;
-        All_File += '\n';
-    }
-    file.close();
-    file.open(FileName.c_str(), ios::out);
-    for (int i = 0; i < All_File.length(); i++) {
-        if(All_File[i]=='\n'){
-            file<<'\n';
-        }
-        else{
-            file << (char) ((int) All_File[i] + 1);}
-
-    }
     file.close();
 }
 
-void decrypt() {
-    Input_FileName();
-    string line;
-    file.open(FileName.c_str(), ios::in);
-    string All_File;
-    while (!file.eof()) {
-        getline(file, line);
-        All_File += line;
-        All_File += '\n';
-    }
-    file.close();
-    file.open(FileName.c_str(), ios::out);
-    for (int i = 0; i < All_File.length(); i++) {
-        if(All_File[i]=='\n'){
-            file<<'\n';
-        }
-        else{
-            file << (char) ((int) All_File[i] - 1);}
-    }
-    file.close();
-}
+
 void count_num_of_times_word_exist(){
+    file.open(FileName, ios::in);
+    int counter = 0, c=0;
+    string word, string1, line;
+    cout << "Enter the word you want to know how many times it is in the file: ";
+    getline(cin, word, '\n');
+    while(getline(file, line)){
+        string1 += line;
+        string1 += ' ';
+    }
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
+    transform(string1.begin(), string1.end(), string1.begin(), ::tolower);
+    for(int i = 0;i < string1.length(); i++) {
+        if (word[0] == string1[i] && string1[i - 1] == ' ') {
+            for (int j = 0; j < word.length(); j++) {
+                if (word[j] == string1[i + j]) {
+                    counter++;
+                }
+            }
+            if (counter == word.length()) {
+                c++;
+            }
+        }
+        else if (word[0] == string1[0]) {
+            for (int j = 0; j < word.length(); j++) {
+                if (word[j] == string1[i + j]) {
+                    counter++;
+                }
+            }
+            if (counter == word.length()) {
+                c++;
+            }
+        }
+        counter = 0;
+    }
+    cout << "Number of times this word has been written is " << c << '\n';
+    file.close();
+}
 
-    char name[100], word[30];;
-    ifstream file;
-    cout<<"the name of file:";
-    cin>>name;
-    file.open(name,ios::in);
-    int coun=0;
-    string the_word;
-    cout<<"Enter the word you want to know how many times it is in the file: ";
-    cin>>the_word;
-    while(!file.eof())
-    {
-        file>>word;
-        if(word==the_word)
-            coun++;
+
+void upper_case() {
+    file.open(FileName, ios::in);
+    string line;
+    while (getline(file, line)) {
+        string_upper += line;
+        string_upper += '\n';
     }
-    cout<<coun;
+    transform(string_upper.begin(), string_upper.end(), string_upper.begin(), ::toupper);
+    last_option = "12";
     file.close();
+    cout << string_upper;
 }
+
+
 void lower_case(){
-    string word;
-    fstream file;
-    file.open(myFile.c_str());
-    if(file.fail()) {
-        cout << "could not open the file..";
-    }else {
-        while (file){
-            getline(file, word, '\0');
+    file.open(FileName, ios::in);
+    string line;
+    while (getline(file, line)){
+        string_lower += line;
+        string_lower += '\n';
+    }
+    transform(string_lower.begin(), string_lower.end(), string_lower.begin(), ::tolower);
+    last_option = "13";
+    file.close();
+}
+void first_caps(){
+    file.open(FileName, ios::in);
+    string line;
+    last_option = "14";
+    while(getline(file, line)){
+        string_caps += line;
+        string_caps += '\n';
+    }
+    transform(string_caps.begin(), string_caps.end(), string_caps.begin(), ::tolower);
+    string_caps[0] = toupper(string_caps[0]);
+    for(int i = 1; i < string_caps.length();++i){
+        if(string_caps[i-1] == ' '){
+            string_caps[i] = toupper(string_caps[i]);
         }
-        for (int i = 0; i < word.length(); i++) {
-            if (isalpha(word[i])) {
-                word[i] = tolower(word[i]);
-            }
+        else if(string_caps[i-1] == '\n'){
+            string_caps[i] = toupper(string_caps[i]);
         }
-        cout << word;
-        ofstream file(myFile.c_str(),ios::out);
-        file << word;
     }
     file.close();
 }
-void upper_case(){
-    string word;
-    fstream file;
-    file.open(myFile.c_str());
-    if(file.fail()) {
-        cout << "could not open the file..";
-    }else {
-        while (file){
-            getline(file, word, '\0');
-        }
-        for (int i = 0; i < word.length(); i++) {
-            if (isalpha(word[i])) {
-                word[i] = toupper(word[i]);
-            }
-        }
-        cout << word;
-        ofstream file(myFile.c_str(),ios::out);
-        file << word;
-    }
+
+
+void save(){
     file.close();
-    
-    void first_caps() {
-    ifstream  file;
-    file.open(name_of_file.c_str());
-    ofstream new_file;
-    char previous_characters = ' ';
-    string characters;
-    getline( file, characters, '\n');
-    new_file.open(name_of_file.c_str());
-    while (! file.eof()) {
-        for (int i = 0;i < characters.size();i++) {
-            if (previous_characters == ' ') {
-                characters[i] = toupper(characters[i]);
-                previous_characters = characters[i];
-            }
-            else
-            {
-                previous_characters = characters[i];
-            }
-        }
-        new_file << characters;
-        new_file << endl;
-        previous_characters = ' ';
-        getline( file, characters, '\n');
-        }
-}
-void save() {
-    ifstream file;
-    file.open(FileName);
-    int YourChoice;
-    cout << "Press 1 to save the contents into the same file, or press 2 to save the contents into another file ...." << endl;
+    string choice;
+    cout<< "Choose: 1-To save the contents into the same file\n2-To save the contents into another file\n3-To Exit WITHOUT saving\n";
     cout << "Enter your choice :";
-    cin >> YourChoice;
-    while (true) {
-        if (YourChoice== 1) {
-            break;
-            }
-        else if (YourChoice == 2) {
-            ofstream new_file;
-            string name_of_newFile;
-            char characters;
-           file.get(characters);
-            cout << "Please Enter Your File Name:";
-            cin >> name_of_newFile;
-            new_file.open(name_of_newFile.c_str(), ios_base::binary);
-            while (!file.eof()) {
-                new_file << characters;
-               file.get(characters);
-            }
-            break;
+    getline(cin, choice, '\n');
+    while(choice != "1" && choice != "2" && choice != "3"){
+        cout << "Invalid choice\n";
+        cout<< "Choose: 1-To save the contents into the same file\n2-To save the contents into another file\n3-To Exit WITHOUT saving\n";
+        cout << "Enter your choice :";
+        getline(cin, choice, '\n');
+    }
+    if (choice == "1") {
+        if(last_option == "1"){
+            file.open(FileName, ios::out);
+            file << string_add;
         }
-        else
-        {
-            cout << "Invalid input" << endl;
-            cout << "please enter valid choice";
-            cin >>YourChoice;
+        else if(last_option == "4"){
+            file.open(FileName, ios::out);
+            for (char i :string_encrypt) {
+                if(i == '\n'){
+                    file << '\n';
+                }
+                else{
+                    file << (char) ((int) i + 1);
+                }
+            }
+        }
+        else if(last_option == "5"){
+            file.open(FileName, ios::out);
+            for (char i : string_decrypt) {
+                if(i=='\n'){
+                    file << '\n';
+                }
+                else{
+                    file << (char) ((int) i - 1);
+                }
+            }
+        }
+        else if(last_option == "6"){
+            file.open(FileName, ios::out);
+            file << string_merge;
+        }
+        else if(last_option == "12") {
+            file.open(FileName, ios::out);
+            file << string_upper;
+        }
+        else if(last_option == "13") {
+            file.open(FileName, ios::out);
+            file << string_lower;
+        }
+        else if(last_option == "14"){
+            file.open(FileName, ios::out);
+            file << string_caps;
+        }
+        else{
+            cout << "No Changes happened to save, output is in the terminal";
+        }
+    }
+    else if (choice == "2") {
+        if(last_option == "1"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            file << string_add << endl;
+        }
+        else if(last_option == "4"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            for (char i : string_encrypt) {
+                if(i=='\n'){
+                    file2 <<'\n';
+                }
+                else{
+                    file2 << (char) ((int) i + 1);
+                }
+            }
+        }
+        else if(last_option == "5"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            for (char i : string_decrypt) {
+                if(i=='\n'){
+                    file2 << '\n';
+                }
+                else{
+                    file2 << (char) ((int) i - 1);
+                }
+            }
+        }
+        else if(last_option == "6"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            file2 << string_merge;
+        }
+        else if(last_option == "12"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            file2 << string_upper;
+        }
+        else if(last_option == "13"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            file2 << string_lower;
+        }
+        else if(last_option == "14"){
+            fstream file2;
+            string FN2;
+            cout << "Please enter the file name to save: ";
+            getline(cin, FN2, '\n');
+            file2.open(FN2.c_str(), ios::out);
+            file2 << string_caps;
+        }
+        else{
+            cout << "No Changes happened to save, output is in the terminal";
         }
     }
 }
