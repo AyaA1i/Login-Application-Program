@@ -1,76 +1,11 @@
-#include <iostream>
-#include <fstream>
-#include<regex>
 
-
-using namespace std;
-
+#include"header.h"
 string FileName;
 fstream file;
-string option, last_option, string_encrypt, string_decrypt, string_merge, string_add, string_upper, string_lower, string_caps;
+string  option, last_option, string_encrypt, string_decrypt,
+        string_merge, string_add, string_upper, string_lower, string_caps;
 
-void display_menu();
-void valid_option();
-void Input_FileName();
-void Add();
-void Display();
-void Empty();
-void encrypt();
-void decrypt();
-void merge();
-void count_num_of_words();
-void count_num_of_characters();
-void count_num_of_lines();
-void search_for_word();
-void count_num_of_times_word_exist();
-void upper_case();
-void lower_case();
-void first_caps();
-void save();
 
-int main() {
-    cout << "Ahlan ya user ya habibi :)";
-    Input_FileName();
-    while (true) {
-        display_menu();
-        valid_option();
-        if (option == "1") {
-            Add();
-        } else if (option == "2") {
-            Display();
-        } else if (option == "3") {
-            Empty();
-        } else if (option == "4") {
-            encrypt();
-        } else if (option == "5") {
-            decrypt();
-        } else if (option == "6") {
-            merge();
-        } else if (option == "7") {
-            count_num_of_words();
-        } else if (option == "8") {
-            count_num_of_characters();
-        } else if (option == "9") {
-            count_num_of_lines();
-        } else if (option == "10") {
-            search_for_word();
-        } else if (option == "11") {
-            count_num_of_times_word_exist();
-        } else if (option == "12") {
-            upper_case();
-        } else if (option == "13") {
-            lower_case();
-        } else if (option == "14") {
-            first_caps();
-        } else if (option == "15") {
-            save();
-        } else if (option == "16") {
-            return 0;
-        }
-        cout << "\n_______________________________________________________________\n";
-    }
-
-}
 
 //_________________________________________
 void valid_option(){
@@ -85,6 +20,7 @@ void valid_option(){
 }
 
 
+//---------------------------------------------
 void display_menu(){
     cout << "Please select an option to apply or 16 to exit:\n"
             "1.  Add new text to the end of the file\n"
@@ -106,6 +42,7 @@ void display_menu(){
 }
 
 
+//---------------------------------------------------------------------------
 void Input_FileName(){
     string line, string1;
     cout << "Enter the file name :\n";
@@ -121,6 +58,7 @@ void Input_FileName(){
     file.close();
 }
 
+//-----------------------------------------------------------------------------
 
 void Add(){
     string add, line;
@@ -139,6 +77,7 @@ void Add(){
     file.close();
 }
 
+//-------------------------------------------------------------------------
 void Display(){
     string line;
     file.open(FileName.c_str(),ios::in);
@@ -151,6 +90,7 @@ void Display(){
     file.close();
 }
 
+//-----------------------------------------------------------------------
 
 void Empty(){
     if(file.tellg() == 0){
@@ -160,6 +100,7 @@ void Empty(){
     file.close();
 }
 
+//----------------------------------------------------------------------
 
 void encrypt() {
     string line;
@@ -174,7 +115,7 @@ void encrypt() {
     file.close();
 }
 
-
+//------------------------------------------------------------------------
 void decrypt() {
     string line;
     file.open(FileName.c_str(), ios::in);
@@ -187,6 +128,7 @@ void decrypt() {
     file.close();
 }
 
+//----------------------------------------------------------------------
 
 void merge(){
     string line;
@@ -214,7 +156,7 @@ void merge(){
     last_option = "6";
 }
 
-
+//-----------------------------------------------------------
 void count_num_of_words(){
     file.open(FileName, ios:: in);
     string string1, line;
@@ -243,6 +185,7 @@ void count_num_of_characters(){
     file.close();
 }
 
+//------------------------------------------------------------------------------------
 
 void count_num_of_lines(){
     file.open(FileName, ios::in);
@@ -255,6 +198,7 @@ void count_num_of_lines(){
     file.close();
 }
 
+//-----------------------------------------------------------------------------------------
 
 void search_for_word(){
     file.open(FileName, ios::in);
@@ -299,6 +243,7 @@ void search_for_word(){
     file.close();
 }
 
+//-------------------------------------------------------------------
 
 void count_num_of_times_word_exist(){
     file.open(FileName, ios::in);
@@ -339,6 +284,7 @@ void count_num_of_times_word_exist(){
     file.close();
 }
 
+//------------------------------------------------------------------------------
 
 void upper_case() {
     file.open(FileName, ios::in);
@@ -353,7 +299,7 @@ void upper_case() {
     cout << string_upper;
 }
 
-
+//------------------------------------------------------------------------------
 void lower_case(){
     file.open(FileName, ios::in);
     string line;
@@ -365,6 +311,7 @@ void lower_case(){
     last_option = "13";
     file.close();
 }
+//------------------------------------------------------------------------------------
 void first_caps(){
     file.open(FileName, ios::in);
     string line;
@@ -386,7 +333,7 @@ void first_caps(){
     file.close();
 }
 
-
+//---------------------------------------------------------------------------------
 void save(){
     file.close();
     string choice;
@@ -522,3 +469,5 @@ void save(){
         }
     }
 }
+
+
