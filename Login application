@@ -1,1 +1,34 @@
+#include <bits/stdc++.h>
+#include <regex>
 
+using namespace std;
+
+void Show_Options();//aya
+void Register();//aya
+void Username();//aya
+void Full_Name();//aya
+void Email();//aya
+void Mobile();//aya
+void Password();//mariam
+void Save_Registration();//mariam
+void Login();//amira
+void Enter_Username();//amira
+void Enter_Password();//amira
+void Check_Login();//amira
+void Change_Password();//amira
+
+int main() {
+    Show_Options();
+    
+}
+void Show_Options(){
+    string choice;
+    cout << "______Welcome to Login Application______";
+    cout << "Choose:\n1-Register\n2-Login\n3-Change Password\n4-Exit\nYour Choice is: ";
+    getline(cin, choice, '\n');
+    while (choice != "1" && choice != "2" && choice != "3" && choice != "4"){
+        cout << "Invalid choice\n";
+        cout << "Choose:\n1-Register\n2-Login\n3-Change Password\n4-Exit\nYour Choice is: ";
+        getline(cin, choice, '\n');
+    }
+}
