@@ -32,3 +32,86 @@ void Show_Options(){
         getline(cin, choice, '\n');
     }
 }
+bool Check_password(const string& p){
+    int upper=0, lower=0, digit=0, symbol=0;
+    for(char i : p){
+        if(isupper(i)){
+            upper++;
+        }
+        else if(islower(i)){
+            lower++;
+        }
+        else if(isdigit(i)){
+            digit++;
+        }
+        else{
+            symbol++;
+        }
+    }
+    if (upper == 0 || lower == 0 || digit == 0 || symbol == 0){
+        return false;
+    }
+    return true;
+}
+int Password(){
+    string password1 = "b", password2 = "c";
+    while(password1 != password2){
+        password1 = "";
+        password2 = "";
+        char ch = 0;
+        cout << "To make strong password:\n1- Enter a password whose length at least 12\n"
+                "2- Your password should contain letters (upper and lower case), numbers and symbols\n";
+        cout << "Your Password is: ";
+        while(ch != 13){
+            ch = getch();
+            password1 += ch;
+            if(ch != 13 && ch != 8){
+                cout << "*";
+            }
+            if(ch == 8){
+                password1.pop_back();
+                cout << "\b \b";
+            }
+        }
+        cout << "\n\n";
+        while(password1.length() < 12 || !Check_password(password1)){
+            password1 = "";
+            password2 = "";
+            char ch = 0;
+            cout << "Weak password\n";
+            cout << "To make strong password:\n1- Enter a password whose length at least 12\n"
+                    "2- Your password should contain letters (upper and lower case), numbers and symbols\n";
+            cout << "Your Password is: ";
+            while(ch != 13){
+                ch = getch();
+                password1 += ch;
+                if(ch != 13 && ch != 8){
+                    cout << "*";
+                }
+                if(ch == 8){
+                    password1.pop_back();
+                    cout << "\b \b";
+                }
+            }
+            cout << "\n\n";
+        }
+        ch = 0;
+        cout << "Please enter the password again to confirm it: ";
+        while(ch != 13){
+            ch = getch();
+            password2 += ch;
+            if(ch != 13 && ch != 8){
+                cout << "*";
+            }
+            if(ch == 8){
+                password1.pop_back();
+                cout << "\b \b";
+            }
+        }
+        cout << "\n\n";
+        if(password1 != password2){
+            cout << "_______Passwords are not equivalent________\n\n";
+        }
+    }
+    cout << "Password is confirmed successfully...\n\n";
+}
