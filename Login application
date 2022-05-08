@@ -115,3 +115,63 @@ int Password(){
     }
     cout << "Password is confirmed successfully...\n\n";
 }
+void Mobile(){
+    int  x =0 ;
+    cout << "Enter your phone number :" << endl;
+    while(x==0) {
+        string PN;
+        cin >> PN;
+        regex number("01[1205][0-9]{8}");
+        x = regex_match(PN, number);
+        if (x == 0) {
+            cout << "Please enter a valid phone number :" << endl;
+        } else {
+            cout<<"Your number has been saved ."<<endl;
+        }
+    }
+}
+void Email(){
+    int  y =0 ;
+    string FirstPart,SecondPart;
+    cout << "Enter Email :" << endl;
+    while(y==0 or FirstPart.length()>64 or SecondPart.length()>63 ) {
+        string E;
+        cin >> E;
+        int at;
+        for(int i =0;i<E.length();i++){
+            if(E[i]=='@') {
+                at=i;
+                break;
+            }
+        }
+        for(int i =0;i<at;i++){
+            FirstPart+=E[i];
+        }
+        for(int i =at+1;i<E.length();i++){
+            SecondPart+=E[i];
+        }
+        regex EMail("[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+(\\.[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+)?@[0-9]*[a-zA-Z]+((\\.[a-zA-Z0-9]+)*(-[a-zA-Z0-9]+)*)*");
+        y = regex_match(E, EMail);
+        if (y == 0 or FirstPart.length()>64 or SecondPart.length()>63) {
+            cout << "Please enter a valid Email :" << endl;
+        } else {
+            cout<<"Your Email has been saved ."<<endl;
+        }
+    }
+}
+void Full_Name(){
+    int  z =0 ;
+    cout << "Enter your name :" << endl;
+    while(z==0) {
+        string name;
+        cin >> name;
+        regex valid("[A-Za-z_]+");
+        z = regex_match(name, valid);
+        if (z == 0) {
+            cout << "Please enter a valid name :" << endl;
+        } else {
+            cout<<"Your name has been saved ."<<endl;
+        }
+    }
+
+}
