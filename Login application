@@ -53,8 +53,8 @@ bool Check_password(const string& p){
     }
     return true;
 }
-int Password(){
-    string password1 = "b", password2 = "c";
+int Password1(){
+    string password1 = "a",password2 = "b";
     while(password1 != password2){
         password1 = "";
         password2 = "";
@@ -64,8 +64,8 @@ int Password(){
         cout << "Your Password is: ";
         while(ch != 13){
             ch = getch();
-            password1 += ch;
             if(ch != 13 && ch != 8){
+                password1 += ch;
                 cout << "*";
             }
             if(ch == 8){
@@ -77,15 +77,15 @@ int Password(){
         while(password1.length() < 12 || !Check_password(password1)){
             password1 = "";
             password2 = "";
-            char ch = 0;
+            ch = 0;
             cout << "Weak password\n";
             cout << "To make strong password:\n1- Enter a password whose length at least 12\n"
                     "2- Your password should contain letters (upper and lower case), numbers and symbols\n";
             cout << "Your Password is: ";
             while(ch != 13){
                 ch = getch();
-                password1 += ch;
                 if(ch != 13 && ch != 8){
+                    password1 += ch;
                     cout << "*";
                 }
                 if(ch == 8){
@@ -99,21 +99,23 @@ int Password(){
         cout << "Please enter the password again to confirm it: ";
         while(ch != 13){
             ch = getch();
-            password2 += ch;
             if(ch != 13 && ch != 8){
+                password2 += ch;
                 cout << "*";
             }
             if(ch == 8){
-                password1.pop_back();
+                password2.pop_back();
                 cout << "\b \b";
             }
         }
         cout << "\n\n";
         if(password1 != password2){
+
             cout << "_______Passwords are not equivalent________\n\n";
         }
     }
     cout << "Password is confirmed successfully...\n\n";
+    return 0;
 }
 void Mobile(){
     int  x =0 ;
