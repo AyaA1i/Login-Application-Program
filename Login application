@@ -1,47 +1,173 @@
 #include <bits/stdc++.h>
 #include <regex>
+#include "conio.h"
 
 using namespace std;
 
-void Show_Options();//aya
+int Show_Options();//aya
 void Register();//aya
 void Username();//aya
 void Full_Name();//aya
 void Email();//aya
 void Mobile();//aya
 void Password();//mariam
-void Save_Registration();//mariam
-void Login();//amira
-void Enter_Username();//amira
-void Enter_Password();//amira
-void Check_Login();//amira
-void Change_Password();//amira
+bool Check_password(const string& p);//mariam
+void Save_Registration_file(const string& UN, const string& E, const string& P, const string& M, const string& N);//mariam
+bool Check_UN(const string& un);//mariam
+bool Check_E(const string& e);//mariam
+void load_profiles();//mariam
+//void Login();//amira
+//void Enter_Username();//amira
+//void Enter_Password();//amira
+//void Check_Login();//amira
+//void Change_Password();//amira
+string password1, PN, email, name, username;
+fstream Data_File;
+int m, n=0;
+struct profiles{
+    string username;
+    string email;
+    string FullName;
+    string password;
+    string mobile;
+};
+profiles User_Pass[30];
+
 
 int main() {
     Show_Options();
-    
+    return 0;
 }
-void Show_Options(){
+int Show_Options(){
     string choice;
-    cout << "______Welcome to Login Application______";
-    cout << "Choose:\n1-Register\n2-Login\n3-Change Password\n4-Exit\nYour Choice is: ";
-    getline(cin, choice, '\n');
-    while (choice != "1" && choice != "2" && choice != "3" && choice != "4"){
-        cout << "Invalid choice\n";
+    cout << "______Welcome to Login Application______\n\n";
+    while(true){
+        load_profiles();
         cout << "Choose:\n1-Register\n2-Login\n3-Change Password\n4-Exit\nYour Choice is: ";
         getline(cin, choice, '\n');
+        cout << "_____________________________________________________\n\n";
+        while (choice != "1" && choice != "2" && choice != "3" && choice != "4"){
+            cout << "Invalid choice\n";
+            cout << "Choose:\n1-Register\n2-Login\n3-Change Password\n4-Exit\nYour Choice is: ";
+            getline(cin, choice, '\n');
+            cout << "_____________________________________________________\n\n";
+        }
+        if(choice == "1"){
+            Register();
+        }
+        else if(choice == "4"){
+            return 0;
+        }
     }
 }
+void Register(){
+    Username();
+    Email();
+    Mobile();
+    Full_Name();
+    Password();
+    Save_Registration_file(username, email, password1, PN, name);
+    cout << "Registration has been completed successfully...\n\n";
+}
+void Username(){
+    cout << "Please enter username: ";
+    getline(cin, username, '\n');
+    while(!Check_UN(username)){
+        cout << "Please enter username: ";
+        getline(cin, username, '\n');
+    }
+    cout << "\n\n";
+}
+void Email(){
+    int  y = 0 ;
+    string FirstPart,SecondPart;
+    cout << "Enter Email : ";
+    while(y == 0 || FirstPart.length() > 64 || SecondPart.length() > 63) {
+        getline(cin, email, '\n');
+        int at;
+        for (int i = 0; i < email.length(); i++){
+            if (email[i] == '@') {
+                at = i;
+                break;
+            }
+        }
+        for(int i =0;i<at;i++){
+            FirstPart += email[i];
+        }
+        for(int i = at + 1; i < email.length(); i++){
+            SecondPart += email[i];
+        }
+        regex EMail("[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+(\\.[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+)?@[0-9]*[a-zA-Z]+((\\.[a-zA-Z0-9]+)*(-[a-zA-Z0-9]+)*)*");
+        y = regex_match(email, EMail);
+        if (y == 0 or FirstPart.length() > 64 or SecondPart.length() > 63) {
+            cout << "Please enter a valid Email : ";
+        }
+    }
+    while(!Check_E(email)){
+        y = 0 ;
+        FirstPart = "",SecondPart = "";
+        cout << "Enter Email : ";
+        while(y == 0 || FirstPart.length() > 64 || SecondPart.length() > 63) {
+            cin.ignore();
+            getline(cin, email, '\n');
+            int at;
+            for (int i = 0; i < email.length(); i++){
+                if (email[i] == '@') {
+                    at = i;
+                    break;
+                }
+            }
+            for(int i =0;i<at;i++){
+                FirstPart += email[i];
+            }
+            for(int i = at + 1; i < email.length(); i++){
+                SecondPart += email[i];
+            }
+            regex EMail("[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+(\\.[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+)?@[0-9]*[a-zA-Z]+((\\.[a-zA-Z0-9]+)*(-[a-zA-Z0-9]+)*)*");
+            y = regex_match(email, EMail);
+            if (y == 0 or FirstPart.length() > 64 or SecondPart.length() > 63) {
+                cout << "Please enter a valid Email : ";
+            }
+        }
+    }
+    cout << "\n\n";
+}
+void Mobile(){
+    int x = 0;
+    cout << "Enter your phone number : ";
+    while(x==0) {
+        getline(cin, PN, '\n');
+        regex number("01[1205][0-9]{8}");
+        x = regex_match(PN, number);
+        if (x == 0) {
+            cout << "Please enter a valid phone number :" << '\n';
+        }
+    }
+    cout << "\n\n";
+}
+void Full_Name(){
+    int  z = 0;
+    cout << "Enter your name : ";
+    while(z == 0) {
+        getline(cin, name, '\n');
+        regex valid("[A-Za-z_]+");
+        z = regex_match(name, valid);
+        if (z == 0) {
+            cout << "Please enter a valid name :" << '\n';
+        }
+    }
+    cout << "\n\n";
+}
 bool Check_password(const string& p){
-    int upper=0, lower=0, digit=0, symbol=0;
-    for(char i : p){
-        if(isupper(i)){
+   int upper=0, lower=0, digit=0, symbol=0;
+    for(char k : p){
+        if(isupper(k)){
             upper++;
         }
-        else if(islower(i)){
+        else if(islower(k)){
             lower++;
         }
-        else if(isdigit(i)){
+        else if(isdigit(k)){
             digit++;
         }
         else{
@@ -53,8 +179,9 @@ bool Check_password(const string& p){
     }
     return true;
 }
-int Password1(){
-    string password1 = "a",password2 = "b";
+void Password(){
+    string password2 = "b";
+    password1 = "a";
     while(password1 != password2){
         password1 = "";
         password2 = "";
@@ -114,66 +241,74 @@ int Password1(){
             cout << "_______Passwords are not equivalent________\n\n";
         }
     }
-    cout << "Password is confirmed successfully...\n\n";
-    return 0;
+    cout << "\n\n";
 }
-void Mobile(){
-    int  x =0 ;
-    cout << "Enter your phone number :" << endl;
-    while(x==0) {
-        string PN;
-        cin >> PN;
-        regex number("01[1205][0-9]{8}");
-        x = regex_match(PN, number);
-        if (x == 0) {
-            cout << "Please enter a valid phone number :" << endl;
-        } else {
-            cout<<"Your number has been saved ."<<endl;
+bool Check_UN(const string& un){
+    int c = 0;
+    for(int i = 0 ;i< 30;++i){
+        if(un == User_Pass[i].username){
+            cout << "This username is used before please choose another username\n";
+            c++;
         }
     }
+    if(c == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
-void Email(){
-    int  y =0 ;
-    string FirstPart,SecondPart;
-    cout << "Enter Email :" << endl;
-    while(y==0 or FirstPart.length()>64 or SecondPart.length()>63 ) {
-        string E;
-        cin >> E;
-        int at;
-        for(int i =0;i<E.length();i++){
-            if(E[i]=='@') {
-                at=i;
-                break;
+bool Check_E(const string& e){
+    int c = 0;
+    for(int i = 0;i < 30;i++){
+        if(e == User_Pass[i].email){
+            cout << "This email is used before please choose another email\n";
+            c++;
+        }
+    }
+    if(c == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void Save_Registration_file(const string& UN, const string& E, const string& P, const string& M, const string& N) {
+    Data_File.open("Data.txt", ios::app);
+    Data_File << "1-";
+    Data_File << UN;
+    Data_File << '\n' << "2-" <<  E << '\n' << "3-" <<  P << '\n' << "4-" << M << '\n' << "5-" << N << "\n\n";
+    Data_File.close();
+}
+void load_profiles(){
+    string line, s;
+    m = 0;
+    Data_File.open("Data.txt", ios::in);
+    while (getline(Data_File, line)) {
+        if (line[0] != '\n') {
+            s = line;
+            if (s[0] == '1') {
+                s.erase(0,2);
+                User_Pass[m].username = s;
+            }
+            if (s[0] == '2') {
+                s.erase(0,2);
+                User_Pass[m].email = s;
+            }
+            if (s[0] == '3') {
+                s.erase(0,2);
+                User_Pass[m].password = s;
+            }
+            if (s[0] == '4') {
+                s.erase(0,2);
+                User_Pass[m].mobile = s;
+            }
+            if (s[0] == '5') {
+                s.erase(0,2);
+                User_Pass[m].FullName = s;
             }
         }
-        for(int i =0;i<at;i++){
-            FirstPart+=E[i];
-        }
-        for(int i =at+1;i<E.length();i++){
-            SecondPart+=E[i];
-        }
-        regex EMail("[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+(\\.[a-zA-Z0-9#!%$‘&+*–/=?^_`{|}~]+)?@[0-9]*[a-zA-Z]+((\\.[a-zA-Z0-9]+)*(-[a-zA-Z0-9]+)*)*");
-        y = regex_match(E, EMail);
-        if (y == 0 or FirstPart.length()>64 or SecondPart.length()>63) {
-            cout << "Please enter a valid Email :" << endl;
-        } else {
-            cout<<"Your Email has been saved ."<<endl;
-        }
+        m++;
     }
-}
-void Full_Name(){
-    int  z =0 ;
-    cout << "Enter your name :" << endl;
-    while(z==0) {
-        string name;
-        cin >> name;
-        regex valid("[A-Za-z_]+");
-        z = regex_match(name, valid);
-        if (z == 0) {
-            cout << "Please enter a valid name :" << endl;
-        } else {
-            cout<<"Your name has been saved ."<<endl;
-        }
-    }
-
+    Data_File.close();
 }
