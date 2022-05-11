@@ -354,3 +354,51 @@ void login(){
 
 
 }
+void Change_Password(){
+  string newpass,pastpass,newpass2,usname,encrbt;
+    cout<<"Enter your old password:";
+    cin>>pastpass;
+    cout<<"Enter the new password:";
+    cin>>newpass;
+    cout<<"Enter your username:";
+    cin>>usname;
+    for(int i=0;i<30;i++)
+    if(pastpass==User_pass[i].password  && usname==User_pass[i].username){
+
+        if(newpass==pastpass){
+       while (true)
+    {
+        if(newpass==pastpass){
+            cout<<"Enter a new password that you have not entered before;";
+            cin>>newpass;
+        }
+        else if(newpass!=pastpass)
+            break;
+    }
+         }
+
+    cout<<"Enter the new password again PLEASE:";
+    cin>>newpass2;
+    if(newpass!=newpass2){
+      while (true){
+        if(newpass!=newpass2){
+
+            cout<<"The new password does not match, \n please enter it again:";
+            cin>>newpass2;
+            }
+        else  if(newpass==newpass2)
+            break;
+           cout<<"Password match";
+
+
+    for(int n=0;n<newpass.length();n++){
+      encrbt= newpass[n]=newpass[n]+1;
+
+        }
+   User_pass[i].password= encrbt;
+}
+        }
+
+}
+   }
+
