@@ -16,7 +16,8 @@ void Save_Registration_file(const string& UN, const string& E, const string& P, 
 bool Check_UN(const string& un);//mariam
 bool Check_E(const string& e);//mariam
 void load_profiles();//mariam
-//void Login();//amira
+void Login();//amira
+void encryptePassword();//amira
 //void Enter_Username();//amira
 //void Enter_Password();//amira
 //void Check_Login();//amira
@@ -311,4 +312,45 @@ void load_profiles(){
         m++;
     }
     Data_File.close();
+}
+void encryptePassword(){
+ cin>>password1;
+    for(int i=0;i<password1.length();i++){
+        password1[i]=password1[i]+1;
+
+        }
+void login(){
+   string userName;
+   string password;
+   string notencpass;
+   int cont=0;
+   int contfil=0;
+    while (contfil<=3)
+    cin>>userName;
+    int n;
+  for (int i=0;i<30;i++){
+      if(userName== User_Pass[i].username)
+          int n=i;
+      cont++;
+
+}
+  if (cont ==0){
+      cout<<"Failed login";
+      contfil++;
+  }
+  else
+      cin>>password;
+
+     for(int i=0;i<password.length();i++){
+       password=password[i]+1;
+
+    }
+
+     if(password==User_Pass[n].passowrd)
+       cout<<"Successful login, welcome "<< User_Pass[n].FullName;
+     else
+         cout<<"Failed login. Try again.";
+        contfil++;
+
+
 }
