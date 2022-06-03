@@ -1,17 +1,9 @@
-#include"Header.h"
-
+#include"CS112-203-2nd-section4-20210083-20210380-20210799-A4-LoginFunctions.h"
 using namespace std;
 
 string password1, PN, email, name, username, password;
 int c1, m, l;
 fstream Data_File;
-struct profiles{
-    string username;
-    string email;
-    string FullName;
-    string password;
-    string mobile;
-};
 profiles User_Pass[30];
 
 //----------------------------------------------------------
@@ -488,10 +480,3 @@ void Change_Password(){
         }
     }
 }
-
-
-
-
-
-
-
