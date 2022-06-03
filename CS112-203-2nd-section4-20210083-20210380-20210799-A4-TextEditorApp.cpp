@@ -1,5 +1,5 @@
-#include "header.h"
-
+#include"CS112-203-2nd-section4-20210083-20210380-20210799-A4-TextEditorFunc.h"
+using namespace std;
 extern string option;
 
 int main() {
