@@ -1,4 +1,4 @@
-// FCI – Programming 1 – 2022 - Assignment 4
+// FCI - Programming 1 - 2022 - Assignment 4
 // Program Name:Text Editor.cpp
 // Last Modification Date: 05-03-2022
 // Author1 and ID and Group: Aya Ali Hassan & 20210083 & A
@@ -6,16 +6,14 @@
 // Author3 and ID and Group: Amira Basaam Dabbak & 20210799 & A
 // Teaching Assistant: Eng. Nesma Mohamed & Eng. Yousra Ayman
 
-
-#ifndef TEXTEDITOR_HEADER_H
-#define TEXTEDITOR_HEADER_H
-
+#ifndef TEXT_EDITOR_CS112_203_2ND_SECTION4_20210083_20210380_20210799_A4_TEXTEDITORFUNC_H
+#define TEXT_EDITOR_CS112_203_2ND_SECTION4_20210083_20210380_20210799_A4_TEXTEDITORFUNC_H
 #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
 #include<regex>
 
-using namespace std;
+
 
 
 
@@ -39,6 +37,5 @@ void first_caps();
 void save();
 
 
+#endif //TEXT_EDITOR_CS112_203_2ND_SECTION4_20210083_20210380_20210799_A4_TEXTEDITORFUNC_H
 
-
-#endif //TEXTEDITOR_HEADER_H
