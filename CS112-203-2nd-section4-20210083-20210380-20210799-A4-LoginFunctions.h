@@ -1,4 +1,4 @@
-// FCI – Programming 1 – 2022 - Assignment 4
+// FCI - Programming 1 - 2022 - Assignment 4
 // Program Name:Login System.cpp
 // Last Modification Date: 05-13-2022
 // Author1 and ID and Group: Aya Ali Hassan & 20210083 & A
@@ -6,13 +6,22 @@
 // Author3 and ID and Group: Amira Basaam Dabbak & 20210799 & A
 // Teaching Assistant: Eng. Nesma Mohamed & Eng. Yousra Ayman
 
-#ifndef LOGIN_SYSTEM_HEADER_H
-#define LOGIN_SYSTEM_HEADER_H
+
+#ifndef LOGINSYSTEM_CS112_203_2ND_SECTION4_20210083_20210380_20210799_A4_LOGINFUNCTIONS_H
+#define LOGINSYSTEM_CS112_203_2ND_SECTION4_20210083_20210380_20210799_A4_LOGINFUNCTIONS_H
+
 #include <bits/stdc++.h>
 #include <regex>
 #include "conio.h"
 using namespace std;
 
+struct profiles{
+    string username;
+    string email;
+    string FullName;
+    string password;
+    string mobile;
+};
 
 int Show_Options();//aya
 void Register();//aya
@@ -37,4 +46,4 @@ void Change_Password();//amira
 
 
 
-#endif //LOGIN_SYSTEM_HEADER_H
+#endif //LOGINSYSTEM_CS112_203_2ND_SECTION4_20210083_20210380_20210799_A4_LOGINFUNCTIONS_H
